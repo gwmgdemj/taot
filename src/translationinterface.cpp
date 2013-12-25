@@ -178,7 +178,7 @@ void TranslationInterface::selectSourceLanguage(int index)
 
     resetTranslation();
     delete m_sourceLanguage;
-    m_sourceLanguage = new LanguageItem(lang);
+    m_sourceLanguage = new LanguageItem(lang, index);
     settings.beginGroup(m_service->uid() + "/SourceLanguage");
     settings.setValue("Info", m_service->serializeLanguageInfo(lang.info));
     settings.endGroup();
@@ -190,6 +190,9 @@ void TranslationInterface::selectSourceLanguage(int index)
             const int i = m_service->targetLanguages(lang).indexOf(m_service->defaultLanguagePair()
                                                                    .second);
             selectTargetLanguage(i < 0 ? 0 : i);
+        } else {
+            m_targetLanguage->setIndex(m_targetLanguages->indexOf(m_targetLanguage->language()));
+            emit targetLanguageChanged();
         }
     }
 }
@@ -202,7 +205,7 @@ void TranslationInterface::selectTargetLanguage(int index)
 
     resetTranslation();
     delete m_targetLanguage;
-    m_targetLanguage = new LanguageItem(lang);
+    m_targetLanguage = new LanguageItem(lang, index);
     settings.beginGroup(m_service->uid() + "/TargetLanguage");
     settings.setValue("Info", m_service->serializeLanguageInfo(lang.info));
     settings.endGroup();
@@ -298,11 +301,12 @@ void TranslationInterface::createService(uint id)
         const QVariant info = m_service->deserializeLanguageInfo(settings.value("Info").toString());
         Language lang(info, m_service->getLanguageName(info));
         if (m_service->sourceLanguages().contains(lang))
-            m_sourceLanguage = new LanguageItem(lang);
+            m_sourceLanguage = new LanguageItem(lang, m_sourceLanguages->indexOf(lang));
     }
     settings.endGroup();
     if (!m_sourceLanguage)
-        m_sourceLanguage = new LanguageItem(defaults.first);
+        m_sourceLanguage = new LanguageItem(defaults.first,
+                                            m_sourceLanguages->indexOf(defaults.first));
 
     m_targetLanguages->setLanguageList(m_service->targetLanguages(m_sourceLanguage->language()));
     settings.beginGroup(m_service->uid() + "/TargetLanguage");
@@ -310,11 +314,12 @@ void TranslationInterface::createService(uint id)
         const QVariant info = m_service->deserializeLanguageInfo(settings.value("Info").toString());
         Language lang(info, m_service->getLanguageName(info));
         if (m_service->targetLanguages(m_sourceLanguage->language()).contains(lang))
-            m_targetLanguage = new LanguageItem(lang);
+            m_targetLanguage = new LanguageItem(lang, m_targetLanguages->indexOf(lang));
     }
     settings.endGroup();
     if (!m_targetLanguage)
-        m_targetLanguage = new LanguageItem(defaults.second);
+        m_targetLanguage = new LanguageItem(defaults.second,
+                                            m_targetLanguages->indexOf(defaults.second));
 
     emit sourceLanguageChanged();
     emit targetLanguageChanged();

@@ -52,6 +52,9 @@ public:
     explicit TranslationServicesModel(const QStringList &strings, QObject *parent = 0);
     QHash<int, QByteArray> roleNames() const;
     int count() const;
+
+public slots:
+    QString get(int index) const;
 };
 
 Q_DECLARE_METATYPE(TranslationServiceItem *)
