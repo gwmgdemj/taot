@@ -27,7 +27,18 @@ Description: Online Translator with some advanced features
  translations.
  .
  More services might be added in future.
+Description-zh: 翻译大师OL
+ 本程序提供可用的在线翻译服务.
+  
+  目前支持的服务:
+  * Google翻译 - 支持语言翻译、语言检测、字典和单词互译.
+  * Microsoft翻译 - (a.k.a Bing翻译) - 仅支持翻译.
+  * Yandex.翻译 - 支持翻译、语言检测.
+  * Yandex.辞典 - 支持辞典、同义词和互译.
+  
+  更多功能将在后续推出,敬请期待.
 XSBC-Maemo-Display-Name: The Advanced Online Translator
+XSBC-Maemo-Display-Name-zh: 翻译大师OL
 XB-Maemo-Flags: visible
 XB-MeeGo-Desktop-Entry-Filename: taot_harmattan
 XB-MeeGo-Desktop-Entry:
