@@ -19,11 +19,11 @@
     <name>MainPage</name>
     <message>
         <source>To</source>
-        <translation>译文</translation>
+        <translation>译</translation>
     </message>
     <message>
         <source>From</source>
-        <translation>源文</translation>
+        <translation>源</translation>
     </message>
     <message>
         <source>About</source>
@@ -31,7 +31,7 @@
     </message>
     <message>
         <source>Clear</source>
-        <translation>清除</translation>
+        <translation>清空</translation>
     </message>
     <message>
         <source>Target Language</source>
